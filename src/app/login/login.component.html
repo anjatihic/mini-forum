@@ -1,0 +1,21 @@
+<body class="container d-flex justify-content-center">
+  <div class="jumbotron my-auto mt-sm-5">
+    <h1>Login</h1>
+    <form>
+      <div>
+        <label>Username</label>
+        <input type="text" class="form-control" placeholder="Username">
+      </div>
+
+      <div>
+        <label>Password</label>
+        <input type="password" class="form-control" placeholder="Password">
+      </div>
+
+      <div class="mt-4">
+        <button class="btn btn-success me-2">Login</button>
+        <a [routerLink]="['../register']" class="btn btn-warning">Register</a>
+      </div>
+    </form>
+  </div>
+</body>
