@@ -1,7 +1,7 @@
 <form>
   <div class="col-sm-6">
     <label>User</label>
-    <input type="text" class="form-control" [(ngModel)]="newPost.userId" name="user_name">
+    <input type="text" class="form-control" [(ngModel)]="currentUser.username"  [disabled]="true" name="user_name">
   </div>
 
   <div class="col-sm-6">

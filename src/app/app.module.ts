@@ -10,15 +10,15 @@ import { RegisterComponent } from './register/register.component';
 import { NewPostComponent } from './forum-page/new-post/new-post.component';
 import {FormsModule} from "@angular/forms";
 import {HttpClientModule} from "@angular/common/http";
+import { UserPipe } from './pipes/user.pipe';
 
 @NgModule({
   declarations: [
     AppComponent,
     ForumPageComponent,
     ProfileComponent,
-    LoginComponent,
-    RegisterComponent,
-    NewPostComponent
+    NewPostComponent,
+    UserPipe
   ],
     imports: [
         BrowserModule,

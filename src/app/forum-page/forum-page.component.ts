@@ -1,8 +1,11 @@
 import {Component, OnDestroy, OnInit} from '@angular/core';
 import {HttpClient} from "@angular/common/http";
-import {Post} from "../post.model";
+import {Post} from "../models/post.model";
 import {BehaviorSubject, map, Subscription} from "rxjs";
 import {PostService} from "./post.service";
+import {User} from "../models/user.model";
+import {AuthService} from "../auth/auth.service";
+import {Router} from "@angular/router";
 
 @Component({
   selector: 'app-forum-page',
@@ -18,7 +21,12 @@ export class ForumPageComponent implements OnInit, OnDestroy{
   editingPost: Post = new Post();
   editingIndex: number | null = null;
 
-  constructor(private postService: PostService) {
+
+  currentUser!: User;
+  users: User[]= [];
+
+
+  constructor(private postService: PostService, private auth: AuthService, private http: HttpClient, private router: Router) {
   }
   showHideComp(){
     this.showHide = !this.showHide;
@@ -32,6 +40,8 @@ export class ForumPageComponent implements OnInit, OnDestroy{
   }
 
   ngOnInit(){
+    this.currentUser = this.auth.fetchUser;
+    console.log('Ovo je trenutni user: ' + this.currentUser.name);
     this.buttonMessage = "New post";
 
     this.postSubject = this.postService.getPosts();
@@ -39,6 +49,26 @@ export class ForumPageComponent implements OnInit, OnDestroy{
       .subscribe(res => {
         this.posts = res;
       })
+
+    this.http
+      .get('https://mini-forum-b5888-default-rtdb.europe-west1.firebasedatabase.app/users.json')
+      .pipe(
+        map((response: any) => {
+          console.log(response);
+          const users: User[] = [];
+          for (const key in response) {
+            if (response.hasOwnProperty(key)) {
+              users.push({ ...response[key], id: key });
+            }
+          }
+          return users;
+        })
+      )
+      .subscribe((response: User[]) => {
+        console.log(response);
+        this.users = response;
+      });
+
   }
 
   setEdit(i:number){
@@ -60,6 +90,14 @@ export class ForumPageComponent implements OnInit, OnDestroy{
   ngOnDestroy() {
     if(this.subscription)
       this.subscription.unsubscribe();
+  }
+
+  logout(){
+    this.auth.logout();
+  }
+
+  goToProfile(){
+  this.router.navigate(['/profile'], {state: {data: this.currentUser}})
   }
 
 }

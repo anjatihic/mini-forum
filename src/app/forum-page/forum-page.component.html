@@ -1,8 +1,8 @@
 
 <body class="col-lg-9 mx-auto p-4 py-md-5">
   <header class="pb-3 mb-5 border-bottom">
-    <p>Welcome <a>((((ime - link))))</a></p>
-    <button class="btn btn-danger">Logout</button>
+    <p>Welcome <a (click) = "goToProfile()" style="color: blue">{{currentUser.username}}</a></p>
+    <button (click)="logout()" class="btn btn-danger">Logout</button>
   </header>
 
   <h2>Posts ({{posts.length}})</h2>
@@ -12,7 +12,7 @@
 
 
       <div class="pb-4 border-bottom">
-        by (((autor)))) at {{post.timestamp | date: 'dd/MM/yyyy, h:mm a' }}
+        by {{users | user: post.userId}} at {{post.timestamp | date: 'dd/MM/yyyy, h:mm a' }}
       </div>
 
 

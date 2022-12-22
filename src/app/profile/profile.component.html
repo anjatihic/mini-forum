@@ -2,12 +2,12 @@
 
   <div class="row g-4">
     <div class="col-8">
-      <h2>Posts by (((((name))))) (((((((((((((number))))))))))</h2>
+      <h2>Posts by {{this.currentUser.name}} ({{this.usersPosts.length}})</h2>
 
-      <div>
+      <div *ngFor="let post of usersPosts">
         <div class="bg-light p-5 rounded">
-          <div class="pb-4 border-bottom">by (((autor)))) at ((((vrijeme)))))</div>
-          <div class="pt-4">(((((((poruka)))))))))))</div>
+          <div class="pb-4 border-bottom">by {{this.currentUser.username}} at {{post.timestamp | date: 'dd/MM/yyyy, h:mm a' }}</div>
+          <div class="pt-4">{{post.comment}}</div>
         </div>
       </div>
     </div>
@@ -15,9 +15,9 @@
     <div class="col-3 mt-5 pt-5">
       User data:
       <div class="mt-3">
-        Username: ((((((username)))))<br>
-        E-mail: ((((((e-mail))))))<br>
-        Name: ((((((((name)))))))
+        Username: {{this.currentUser.username}}<br>
+        E-mail: {{this.currentUser.email}}<br>
+        Name: {{this.currentUser.name}}
       </div>
     </div>
   </div>

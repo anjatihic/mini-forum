@@ -1,7 +1,7 @@
 import { Injectable } from '@angular/core';
 import {HttpClient} from "@angular/common/http";
 import {map} from "rxjs";
-import {Post} from "../post.model";
+import {Post} from "../models/post.model";
 
 @Injectable({
   providedIn: 'root'
@@ -31,6 +31,19 @@ export class DataService {
 
   editPost(post: Post){
     return this.http.patch(`https://mini-forum-b5888-default-rtdb.europe-west1.firebasedatabase.app/posts/${post.id}/.json`, post);
+  }
+
+  getUsers(){
+    return this.http.get('https://mini-forum-b5888-default-rtdb.europe-west1.firebasedatabase.app/users.json')
+      .pipe(
+        map((res:any) => {
+          const users = [];
+          for(let key in res){
+            users.push({...res[key], id: key});
+          }
+          return users;
+        })
+      )
   }
 
 }

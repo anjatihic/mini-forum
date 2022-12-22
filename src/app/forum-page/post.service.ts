@@ -1,5 +1,5 @@
 import { Injectable } from '@angular/core';
-import {Post} from "../post.model";
+import {Post} from "../models/post.model";
 import {BehaviorSubject} from "rxjs";
 import {DataService} from "./data.service";
 
